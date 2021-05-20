@@ -32,7 +32,6 @@ def rule1(prev, current, next):
 #Second of pair 
 def rule2(prev,current,next):
     print("rule 2:",prev,current,next)
-
     if((current in a or current in b) and (current != next[0])):
         prev, current, next = shift(prev,current,next)
         return rule1(prev,current,next)
