@@ -21,8 +21,8 @@ def start(prev, current,next):
 #First of pair
 def rule1(prev, current, next):
     print("rule 1:",prev,current,next)
-    if (len(next) == 0 and current == '.'):
-        return True
+    if (len(next) == 0 ):
+        return current == '.'
     if((current in a or current in b) and current == next[0]):
         prev, current, next = shift(prev,current,next)
         return rule2(prev,current,next)
@@ -32,6 +32,9 @@ def rule1(prev, current, next):
 #Second of pair 
 def rule2(prev,current,next):
     print("rule 2:",prev,current,next)
+    if(len(next) == 0 ):
+        print ("error at word",current)
+        return False 
     if((current in a or current in b) and (current != next[0])):
         prev, current, next = shift(prev,current,next)
         return rule1(prev,current,next)
@@ -45,4 +48,4 @@ def shift(prev,current,next):
     del next[0]
     return [prev,current,next]
 
-print(start([],'a',['a','b','b','.']))
+
