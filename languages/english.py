@@ -125,12 +125,10 @@ def generateEnglishTree(token):
     if(token == 'VP'):
         results = random.choice([['Vi'],['Vt','NP'],['VP','PP']])
         children =  list(map(generateEnglishTree,results))
-        print(children);
-        return Tree('VP',[children])
+        return Tree('VP',children)
     if(token == 'NP'):
         results = random.choice([['DT','NN'],['NP','PP']])
         children = list(map(generateEnglishTree,results))
-        print(children)
         return Tree('NP', children )
     if(token == 'PP'):
         leftChild = generateEnglishTree('IN')
