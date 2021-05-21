@@ -1,4 +1,6 @@
 #!/usr/bin/python
+import random
+from nltk.tree import *
 dtFile = open('./languages/english words/determiners.txt','r')
 determiners = dtFile.read().split()
 dtFile.close()
@@ -76,3 +78,72 @@ def filterThenCheck(phrase):
         return validateEnglish(list(result))
     except Exception:
         return False
+
+def generateEnglishSentence(token):
+    if(token == 'S'):
+        return generateEnglishSentence('NP')+ " "+generateEnglishSentence('VP')
+    if(token == 'VP'):
+        results = random.choice([['Vi'],['Vt','NP'],['VP','PP']])
+        return reduce(concatReduce,map(generateEnglishSentence,results))
+    if(token == 'NP'):
+        results = random.choice([['DT','NN'],['NP','PP']])
+        return reduce(concatReduce,map(generateEnglishSentence,results))
+    if(token == 'PP'):
+        return generateEnglishSentence('IN')+" "+generateEnglishSentence('NP')
+    if(token == 'Vi'):
+        return random.choice(intransitives_verbs)
+    if(token == 'Vt'):
+        return random.choice(transitive_verbs)
+    if(token == 'DT'):
+        return random.choice(determiners)
+    if(token == 'NN'):
+        return random.choice(nouns)
+    if(token == 'IN'):
+        return random.choice(prepositions)
+    print("YER OFF THE EDGE OF THE MAP!",token)
+
+def concatReduce(a,b):
+    return a +" " + b
+
+def reduce(function, iterable, initializer=None):
+    it = iter(iterable)
+    if initializer is None:
+        value = next(it)
+    else:
+        value = initializer
+    for element in it:
+        value = function(value, element)
+    return value
+
+
+
+def generateEnglishTree(token):
+    if(token == 'S'):
+        leftChild = generateEnglishTree('NP')
+        rightChild = generateEnglishTree('VP')
+        return Tree('S',[leftChild,rightChild])
+    if(token == 'VP'):
+        results = random.choice([['Vi'],['Vt','NP'],['VP','PP']])
+        children =  list(map(generateEnglishTree,results))
+        print(children);
+        return Tree('VP',[children])
+    if(token == 'NP'):
+        results = random.choice([['DT','NN'],['NP','PP']])
+        children = list(map(generateEnglishTree,results))
+        print(children)
+        return Tree('NP', children )
+    if(token == 'PP'):
+        leftChild = generateEnglishTree('IN')
+        rightChild = generateEnglishTree('NP')
+        return Tree('PP', [leftChild,rightChild])
+    if(token == 'Vi'):
+        return Tree('Vi',[random.choice(intransitives_verbs)])
+    if(token == 'Vt'):
+        return Tree('Vt',[random.choice(transitive_verbs)])
+    if(token == 'DT'):
+        return Tree('DT',[random.choice(determiners)])
+    if(token == 'NN'):
+        return Tree('NN',[random.choice(nouns)])
+    if(token == 'IN'):
+        return Tree('IN',[random.choice(prepositions)])
+    print("YER OFF THE EDGE OF THE MAP!",token)

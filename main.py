@@ -5,7 +5,7 @@ import nltk
 from nltk.corpus import treebank
 from nltk.tree import *
 from languages.aabblang import validate
-from languages.english import filterThenCheck
+from languages.english import filterThenCheck, generateEnglishSentence, generateEnglishTree
 
 # nltk sample tree 
 def demo1():
@@ -33,18 +33,29 @@ def demo5():
     t.draw()
 
 
-def demo6():
-    print(filterThenCheck('The man sleep'))
+def demo6(str):
+    print(filterThenCheck(str))
 
+def demo7():
+    generatedSentence  =  generateEnglishSentence('S')
+    print(generatedSentence)
+    return generatedSentence
+
+def demo8():
+    generatedEnglishTree = generateEnglishTree('S')
+    generatedEnglishTree.draw()
 def main():
-    print("Hello World!")
     # demo1()
     # demo2()
     # demo3()
     # demo4( 'a a b b a a b b .' )
     # demo4('a a b b . a a b b a')
     # demo5()
-    demo6()
+    # demo6('The man sleep')
+    # demo7()
+    # demo6(demo7())
+    demo8()
+
 
 if __name__ == "__main__":
     main()
