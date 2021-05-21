@@ -9,7 +9,7 @@ S=> ε
 a = ['a']
 b = ['b']
 
-def start(prev, current,next):
+def validate(prev, current,next):
     if(current in a or current in b):
         prev, current, next = shift(prev,current,next)
         return rule2(prev,current,next)

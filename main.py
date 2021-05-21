@@ -4,15 +4,8 @@ from languages.aabblangtree import startTree
 import nltk
 from nltk.corpus import treebank
 from nltk.tree import *
-from languages.aabblang import *
-"""
-
-
-
-
--- Find/construc CFG for english 
-
-"""
+from languages.aabblang import validate
+from languages.english import filterThenCheck
 
 # nltk sample tree 
 def demo1():
@@ -29,31 +22,27 @@ def demo3():
     t3 = Tree('r',[t1,t2])
     t3.draw()
 # abstract grammar validation demo
-def demo4(): 
-    str = 'a a b b a a b b .'
+def demo4(str): 
     str = str.split()
     current = str [0]
     del str[0]
-    print(start([],current,str))
-# abstract grammar failed validation demo
-def demo5(): 
-    str = 'a a b b . a a b b a'
-    str = str.split()
-    current = str [0]
-    del str[0]
-    print(start([],current,str, []))
-
+    print(validate([],current,str))
 #Abstract language tree generation demo
-def demo6():
+def demo5(): 
     t = Tree('root',startTree([],'a',['a','b','b','a','a','.']))
     t.draw()
+
+
+def demo6():
+    print(filterThenCheck('cry the jar distinguish'))
 
 def main():
     print("Hello World!")
     # demo1()
     # demo2()
     # demo3()
-    # demo4()
+    # demo4( 'a a b b a a b b .' )
+    # demo4('a a b b . a a b b a')
     # demo5()
     demo6()
 
