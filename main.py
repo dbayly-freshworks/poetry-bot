@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from languages.englishreloaded import generateEnglishReloadedTree
 from languages.aabblangtree import startTree
 import nltk
 from nltk.corpus import treebank
@@ -19,7 +20,7 @@ def demo2():
 def demo3():
     t1  = Tree('e',['beep'])
     t2  = Tree('o',['boop'])
-    t3 = Tree('r',[t1,t2])
+    t3 = Tree('root',[t1,t2])
     t3.draw()
 # abstract grammar validation demo
 def demo4(str): 
@@ -42,19 +43,30 @@ def demo7():
     return generatedSentence
 
 def demo8():
-    generatedEnglishTree = generateEnglishTree('S')
-    generatedEnglishTree.draw()
+    generateEnglishTree('S').draw()
+
+def demo9():
+    generateEnglishReloadedTree('S').draw()
 def main():
     # demo1()
     # demo2()
     # demo3()
+    # print('This is is a correct phrase in Abba-lang.')
     # demo4( 'a a b b a a b b .' )
+    # print('\n\nThis is is an incorrect phrase in Abba-lang.')
     # demo4('a a b b . a a b b a')
     # demo5()
-    # demo6('The man sleep')
-    # demo7()
-    # demo6(demo7())
+    # print('Checking the default sentence:')
+    input('Validate the simple sentence "The man sleep"')
+    demo6('The man sleep')
+    input('\n\nCreating a new sentence from the base grammar set:')
+    demo7()
+    input('\n\nFeeing a generated sentence into the grammar checker:')
+    demo6(demo7())
+    input('\n\nCreating a tree with the base grammar set:')
     demo8()
+    input('\n\nCreating a tree with the extended grammar set:')
+    demo9() 
 
 
 if __name__ == "__main__":
