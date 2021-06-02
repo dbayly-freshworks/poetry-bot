@@ -34,7 +34,7 @@ def demo5():
 
 
 def demo6():
-    print(filterThenCheck('The man sleep'))
+    print(filterThenCheck('cry the jar distinguish'))
 
 def main():
     print("Hello World!")
